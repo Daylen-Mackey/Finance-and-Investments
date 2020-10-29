@@ -1,0 +1,12 @@
+- Goal is to create a dashboard component that shows you all the global currencies on an interactive geographical map (maybe heat map).
+- You can click on different countries and see which country's currencies are pegged to it / pegged to
+    - You can then select countries and see a historical plot of their exchange rates to look for consistency 
+
+
+Steps:
+
+1) Data Collection
+    a) Goal is to create some dataframe that shows all the countires, and lists the countries they're pegged too
+    b) Find a link... Looks like two wikipedia articles are our best options:
+        1) https://en.wikipedia.org/wiki/List_of_circulating_currencies
+        2) https://en.wikipedia.org/wiki/List_of_circulating_fixed_exchange_rate_currencies
