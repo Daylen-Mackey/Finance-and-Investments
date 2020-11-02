@@ -163,23 +163,58 @@ fig.update_layout(
 pyo.plot(fig)
 
 
-#%% Horizontal Bar Plot
+#%% API experimentation
 
 df = pd.read_csv('FinalFXSheet.csv')
-# First get counts for each reference currency
 
-grouped_reference_currency_count = df.groupby('Reference Currency').count()
-grouped_reference_currency_median = df.groupby('Reference Currency').median()
+from exchangeratesapi import Api
+from datetime import date,timedelta
+import requests
+import json
+api = Api()
 
-
-#%%
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-
-import numpy as np
-grouped_reference_currency_count.sort_values('Count',inplace = True,ascending = False)
-grouped_reference_currency_median = grouped_reference_currency_median.reindex_like(grouped_reference_currency_count)
 
 #%%
-y_saving = grouped_reference_currency_count.Count
-y_net_worth = grouped_reference_currency_median['Rate (Reference / Fixed)']
+today_obj = date.today()
+today_str = today_obj.strftime("%Y-%m-%d")
+year_ago = (today_obj - timedelta(days = 365)).strftime("%Y-%m-%d")
+API_url = f"https://api.exchangeratesapi.io/history?start_at={year_ago}&end_at={today_str}"
+
+response = requests.get(API_url)
+
+hist_rates = json.loads(response.text)['rates']
+#%% All historical rates received in json format 
+
+
+df_rates = pd.DataFrame(hist_rates).transpose() # All these rates are grabbed with respect to the Euro 
+
+parent_currencies = df[df['Reference Currency'].notna()].Ref_ISO.unique()
+
+supported_children_currencies = df[df['Reference Currency'].notna() & df['Supported?']].ISO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -25,6 +25,7 @@ external_stylesheets = [
 ]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
 
 
 app.layout = html.Div(style = {'width' : '100%'},children = [
@@ -55,9 +56,24 @@ app.layout = html.Div(style = {'width' : '100%'},children = [
 
     
 
+    ]),
+
+    html.Div(className = 'row',children = [
+        html.Div(className = 'col-lg-12',
+        children  =[
+
+            # Some DCC GRAPH 
+        ])
+
+
+
+
+
+
+
     ])
 
 ])
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server()
