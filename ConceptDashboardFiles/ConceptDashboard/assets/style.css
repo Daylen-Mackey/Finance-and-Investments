@@ -1,0 +1,24 @@
+:root{
+--background-color : #07244f;
+--darker-blue-color : #031635;
+--secondary-background-color : 	#15386a;
+--silver-color : #838282;
+
+}
+
+
+
+#master-div{
+    background-color: var(--background-color);
+    color:black;
+
+
+}
+.navbar {
+    width:100%;
+    margin-top :0;
+}
+
+.plot-box{
+    border : 3px solid var(--darker-blue-color)
+}

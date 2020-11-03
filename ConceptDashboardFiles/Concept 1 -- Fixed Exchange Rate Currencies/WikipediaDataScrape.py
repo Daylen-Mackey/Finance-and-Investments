@@ -162,6 +162,12 @@ fig.update_layout(
   
 pyo.plot(fig)
 
+#%% Capitalize every word
+df = pd.read_csv('FinalFXSheet.csv')
+df['Reference Currency'] = df['Reference Currency'].str.title()
+
+
+
 
 #%% API experimentation
 
@@ -193,8 +199,20 @@ parent_currencies = df[df['Reference Currency'].notna()].Ref_ISO.unique()
 supported_children_currencies = df[df['Reference Currency'].notna() & df['Supported?']].ISO
 
 
+#%% Rather than taking this approach, talk about the IMPACT floating a currency has 
+"""
+1) 1967 British pound?
+2) Thai Baht 1997
+3) Bank of England 1992
 
+"""
 
+#1) 1) 1967 British pound? 
+API_url = f"https://api.exchangeratesapi.io/history?start_at=1997-01-01&end_at=1998-01-01"
+
+response = requests.get(API_url)
+
+hist_rates = json.loads(response.text)['rates']
 
 
 
