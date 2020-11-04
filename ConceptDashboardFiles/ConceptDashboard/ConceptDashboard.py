@@ -82,6 +82,32 @@ def toggle_collapse(n, is_open):
     return is_open
 
 
+toast = html.Div(
+    [
+        dbc.Button(
+            "Info",
+            id="simple-toast-toggle",
+            color="primary",
+            className="mb-3",
+        ),
+        dbc.Toast(
+            [html.P("This is the content of the toast", className="mb-0")],
+            id="simple-toast",
+            header="This is the header",
+            icon="primary",
+            dismissable=True,
+        ),
+    ]
+)
+
+
+# @app.callback(
+#     Output("simple-toast", "is_open"),
+#     [Input("simple-toast-toggle", "n_clicks")],
+# )
+# def open_toast(n):
+#     return True
+
 
 
 app.layout = html.Div(id = 'master-div',
@@ -94,7 +120,7 @@ children = [
                 "interesting concepts I learned while taking 'The Complete Financial Analyst Training & Investing Course' on Udemy. ",html.Br(), 
                 "\nPlease note: This is still a work in progress, and loading times may vary as the site is using free hosting from Heroku.",html.Br(),
                 "\nProject Start Date: 2020-11-01 ",html.Br(),
-                "\nMost Recent Update: 2020-11-02 " ]
+                "\nMost Recent Update: 2020-11-03 " ]
                 )
             )),
             id="collapse",
@@ -102,7 +128,7 @@ children = [
     html.Div(className = 'row',children = [
 
 
-        html.Div(className = 'col-lg-6 plot-box',children = [
+        html.Div(className = 'col-lg-5 plot-box',children = [
             dcc.Graph(
         id='chloro-map',config={
         'displayModeBar': False
@@ -114,7 +140,7 @@ children = [
 
         ]),
 
-        html.Div(className = 'col-lg-6 plot-box',children = [
+        html.Div(className = 'col-lg-7 plot-box',children = [
             dcc.Graph(id = 'dual-fx-plot',config={
         'displayModeBar': False
     },
@@ -128,25 +154,30 @@ children = [
 
         ])
 
-    
-
     ]),
 
     html.Div(className = 'row',children = [
-        html.Div(className = 'col-lg-12',
-        children  =[
+        html.H3("When Currencies Are Forced To Float")
+    ]),
+    html.Div(className = 'row plot-box',children = [
+        html.Div(dcc.Graph(figure = FL.generate_Thai_USD_plot()),className = 'col-lg-12',),
+        # html.Div(dcc.Graph(figure = FL.generate_Thai_USD_plot()),className = 'col-lg-',),
+        html.Div(className = 'row',children = [
+            # html.Div(toast),
 
-            # Some DCC GRAPH 
-        ]),
-        html.Div(className = 'col-lg-')
+        ])
+        
 
 
 
 
+    ]),
 
 
 
-    ])
+    html.Div(className = 'row',children = [
+        html.H3("USD Volatilty Surrounding the Election")
+    ]),
 
 ])
 

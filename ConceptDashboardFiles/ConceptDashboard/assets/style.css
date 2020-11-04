@@ -3,9 +3,14 @@
 --darker-blue-color : #031635;
 --secondary-background-color : 	#15386a;
 --silver-color : #838282;
+--raspberry-color : #92174a;
 
 }
-
+h3{
+    color:white;
+    text-align: center;
+    margin: auto;
+}
 
 
 #master-div{

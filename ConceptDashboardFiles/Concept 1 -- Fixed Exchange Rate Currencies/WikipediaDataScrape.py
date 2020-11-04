@@ -121,6 +121,7 @@ country_iso.loc[country_iso_mask,'Count'] = 1
 import plotly.express as px
 import plotly.offline as pyo
 import plotly.graph_objs as go
+#%%
 df = pd.read_csv('FinalFXSheet.csv')
 
 df = df[df['Reference Currency'].notna()]
@@ -200,13 +201,71 @@ supported_children_currencies = df[df['Reference Currency'].notna() & df['Suppor
 
 
 #%% Rather than taking this approach, talk about the IMPACT floating a currency has 
+
 """
-1) 1967 British pound?
+1) 1967 British pound? --> Too old 
 2) Thai Baht 1997
 3) Bank of England 1992
 
 """
+# 2) Thai Baht 1997 -- July 2nd
 
+df = pd.read_excel("Thai-US.xls")
+df['Date'] = df['observation_date'].dt.date
+
+trace = go.Scatter(
+    x = df.Date,
+    y = df.DEXTHUS,
+    
+    
+    )
+
+layout = dict(
+    title='Thai Baht / USD Foreign Exchange Rate',
+    xaxis=dict(
+        
+        rangeslider=dict(
+            visible = True
+        ),
+        type='date'
+    )
+)
+fig = go.Figure(data = trace, layout = layout)
+
+event_date = '1997-07-02'
+fig.add_annotation(x = event_date, y=30.18,
+            text="Thai Baht detaches from US Dollar",
+        showarrow=True,
+        font=dict(
+            family="Courier New, monospace",
+            size=16,
+            color="#ffffff"
+            ),
+        align="center",
+        arrowhead=2,
+        arrowsize=1,
+        arrowwidth=2,
+        clicktoshow = 'onoff',
+        arrowcolor="#636363",
+        ax=-50,
+        ay=-30,
+        bordercolor="#c7c7c7",
+        borderwidth=2,
+        borderpad=4,
+        bgcolor="#ff7f0e",
+        opacity=0.8
+            )
+fig.update_layout()
+initial_range = [
+    '1996-01-01', '2001-01-01']
+
+fig['layout']['xaxis'].update(range=initial_range)
+
+pyo.plot(fig)
+
+
+
+#%%
 #1) 1) 1967 British pound? 
 API_url = f"https://api.exchangeratesapi.io/history?start_at=1997-01-01&end_at=1998-01-01"
 

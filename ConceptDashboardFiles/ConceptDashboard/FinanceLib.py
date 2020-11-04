@@ -15,7 +15,76 @@ def get_FX_sheet():
     df['Reference Currency'] = df['Reference Currency'].str.title()
     return df
 
- 
+
+def get_Thai_sheet():
+
+    return pd.read_excel("assets/Thai-US.xls")
+
+def generate_Thai_USD_plot():
+    df = get_Thai_sheet()
+    df['Date'] = df['observation_date'].dt.date
+
+    trace = go.Scatter(
+        x = df.Date,
+        y = df.DEXTHUS,
+        mode='lines',
+        line_color='#92174a',
+        # marker_color='#92174a',
+        
+        
+        )
+
+    layout = dict(
+        title='Thai Baht / USD Foreign Exchange Rate',
+        title_x = .5,
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        font_color = 'white',
+        font_size = 12,
+        
+        xaxis=dict(
+            
+            rangeslider=dict(
+                visible = True
+            ),
+            type='date'
+        )
+    )
+    fig = go.Figure(data = trace, layout = layout)
+
+    event_date = '1997-07-02'
+    fig.add_annotation(x = event_date, y=30.18,
+                text="Thai Baht detaches from US Dollar",
+            showarrow=True,
+            font=dict(
+                family="Courier New, monospace",
+                size=16,
+                color="#ffffff"
+                ),
+            align="center",
+            arrowhead=2,
+            arrowsize=1,
+            arrowwidth=2,
+            clicktoshow = 'onoff',
+            arrowcolor="#636363",
+            ax=-100,
+            ay=-30,
+            bordercolor="#c7c7c7",
+            borderwidth=2,
+            borderpad=4,
+            bgcolor="#ff7f0e",
+            opacity=0.8
+                )
+    fig.update_layout()
+    initial_range = [
+        '1996-01-01', '2001-01-01']
+
+    fig['layout']['xaxis'].update(range=initial_range)
+
+    return fig
+
+
+
 def generate_dual_FX_plot():
     df = get_FX_sheet()
     grouped_reference_currency_count = df.groupby('Reference Currency').count()
@@ -53,9 +122,10 @@ def generate_dual_FX_plot():
     fig.append_trace(go.Scatter(
         x=y_median, y=x,
         mode='lines+markers+text',
+        line_color='rgb(128, 0, 128)',
         textposition='middle right',
         text=y_median,
-        line_color='rgb(128, 0, 128)',
+        
         name='Median<br>FX<br>Rate',
     ), 1, 2)
 
@@ -65,6 +135,7 @@ def generate_dual_FX_plot():
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
         font_color = 'white',
+        font_size = 12,
         # hovermode="x unified",
         yaxis=dict(
             showgrid=False,
@@ -148,13 +219,15 @@ def generate_FX_chloropleth():
     fig.update_layout(
         title_text='Countries with Fixed Exchange Rates (Pegged Currencies)',
         title_x = .5,
+        title_y = .9,
         coloraxis_showscale=False,
         autosize=True,
         
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
         font_color = 'white',
-        # margin=dict(t=0, b=0, l=25, r=25),
+        # margin=dict(t=25, b=0, l=25, r=25),
+        margin=dict(t=5, b=5, l=5, r=5),
         # width = 1500,
         # height = 1000,
 
@@ -162,7 +235,7 @@ def generate_FX_chloropleth():
             showframe=True,
             bgcolor='#15386a',
             showcoastlines=True,
-            # projection_type='equirectangular'
+            projection_type='equirectangular'
         ),
 
 
