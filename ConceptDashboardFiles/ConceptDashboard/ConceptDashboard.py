@@ -160,7 +160,23 @@ children = [
         html.H3("When Currencies Are Forced To Float")
     ]),
     html.Div(className = 'row plot-box',children = [
-        html.Div(dcc.Graph(figure = FL.generate_Thai_USD_plot()),className = 'col-lg-12',),
+        html.Div(dcc.Graph(figure = FL.generate_Thai_USD_plot()),className = 'col-lg-8',),
+        html.Div(className = 'col-lg-4',style = {'color' : 'white'},
+        children = [
+            html.P(
+                children = ["Data Source: Board of Governors of the Federal Reserve System (US), Thailand / U.S. Foreign Exchange Rate [DEXTHUS], retrieved from FRED, Federal Reserve Bank of St. Louis; November 10, 2020. ",
+                html.A(href = "https://fred.stlouisfed.org/series/DEXTHUS",children = '(link)'),
+                html.Br(), "The Asian financial crisis was a period of financial crisis that gripped much of East Asia and Southeast Asia beginning in July 1997 and raised fears of a worldwide economic meltdown due to financial contagion.",
+
+"The crisis started in Thailand (known in Thailand as the Tom Yam Kung crisis) on 2 July, with the financial collapse of the Thai baht after the Thai government was forced to float the baht due to lack of foreign currency to support its currency peg to the U.S. dollar. Capital flight ensued almost immediately, beginning an international chain reaction. At the time, Thailand had acquired a burden of foreign debt. As the crisis spread, most of Southeast Asia and Japan saw slumping currencies, devalued stock markets and other asset prices, and a precipitous rise in private debt. ",
+html.A('(source)',href = "https://en.wikipedia.org/wiki/1997_Asian_financial_crisis")
+                
+                ]
+
+
+            )
+        ]
+        ),
         # html.Div(dcc.Graph(figure = FL.generate_Thai_USD_plot()),className = 'col-lg-',),
         html.Div(className = 'row',children = [
             # html.Div(toast),
@@ -175,9 +191,6 @@ children = [
 
 
 
-    html.Div(className = 'row',children = [
-        html.H3("USD Volatilty Surrounding the Election")
-    ]),
 
 ])
 

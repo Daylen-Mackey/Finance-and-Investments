@@ -275,7 +275,18 @@ hist_rates = json.loads(response.text)['rates']
 
 
 
+#%%%
+# Converting the EXCEl GDP data into something cleaner and easier to process
+df = pd.read_excel("assets/US_GDP_QUARTLERY.xls")
+df = df.iloc[10:]
+df.columns = ['Date',"GDP (Millions)"]
 
+df['Date'] = pd.to_datetime(df['Date']).dt.date
+
+#%% Code to determine if in recession
+# Recession means two consecutive down quarters, break recession with two periods of growth
+
+difference = df['GDP (Millions)'].diff() 
 
 
 
